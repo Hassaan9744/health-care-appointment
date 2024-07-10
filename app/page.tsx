@@ -16,9 +16,7 @@ export default function Home() {
           />
           <PatientForm />
           <div className="flex text-14-reugular mt-9">
-            <p className="justify-items-end text-dark-600 xl:text-left">
-              © 2024 CarePulse.
-            </p>
+            <p className="copyright">© 2024 CarePulse.</p>
             <Link className="text-green-500 ms-auto" href="/?admin=true">
               Admin
             </Link>
