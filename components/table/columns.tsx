@@ -26,6 +26,7 @@ export const columns: ColumnDef<Payment>[] = [
     accessorKey: "patient",
     header: "Patient",
     cell: ({ row }) => (
+      // @ts-ignore
       <p className="text-14-medium">{row.original.patient.name}</p>
     ),
   },
@@ -52,6 +53,7 @@ export const columns: ColumnDef<Payment>[] = [
     header: () => "doctor",
     cell: ({ row }) => {
       const doctor = Doctors.find(
+        // @ts-ignore
         (doc) => doc.name === row.original.primaryPhysician
       );
       return (
