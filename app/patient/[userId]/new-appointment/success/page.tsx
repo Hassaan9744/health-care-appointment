@@ -44,7 +44,7 @@ const SuccessPage = async ({
           Your <span className="text-green-500">appointment request</span> has
           been successfully submitted
         </h2>
-        <p>We'll be in touch shortly to confirm.</p>
+        <p>We will be in touch shortly to confirm.</p>
         <section className="request-details">
           <p>Requested Appointment Details:</p>
           <div className="flex items-center gap-3">

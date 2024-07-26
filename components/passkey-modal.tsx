@@ -20,7 +20,7 @@ import { useEffect, useState } from "react";
 import { encryptKey } from "@/lib/utils";
 import { toast } from "./ui/use-toast";
 
-const passkeyModal = () => {
+const PasskeyModal = () => {
   const [open, setOpen] = useState(false);
   const [passKey, setPassKey] = useState("");
   const [error, setError] = useState("");
@@ -126,4 +126,4 @@ const passkeyModal = () => {
   );
 };
 
-export default passkeyModal;
+export default PasskeyModal;
