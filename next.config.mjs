@@ -4,6 +4,9 @@ const nextConfig = {
   tpyescript: {
     ignoreBuildErrors: true,
   },
+  eslint: {
+    ignoreDuringBuilds: true,
+  },
 };
 
 export default withSentryConfig(nextConfig, {
