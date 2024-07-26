@@ -34,10 +34,12 @@ const PatientForm = () => {
         email: values.email,
         phone: values.phone,
       };
-      const newUser = await createUser(user);
-      console.log("newUser", newUser);
-      if (newUser) {
-        router.push(`/patient/${newUser.$id}/register`);
+      const response = await createUser(user);
+
+      if (response.existingUser) {
+        router.push(`/patient/${response.existingUser.$id}/new-appointment`);
+      } else if (response.newUser) {
+        router.push(`/patient/${response.newUser.$id}/register`);
       }
     } catch (error) {
       console.log(error);
