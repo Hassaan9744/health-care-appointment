@@ -59,7 +59,7 @@ export const getRecentAppointments = async () => {
       APPOINTMENT_COLLECTION_ID!,
       [Query.orderDesc("$createdAt")]
     );
-
+    console.log("appointments", appointments);
     if (!appointments.documents) {
       throw new Error("No documents found");
     }

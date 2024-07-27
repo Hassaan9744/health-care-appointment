@@ -1,13 +1,32 @@
+"use client";
 import StatCard from "@/components/stat-card";
 import { getRecentAppointments } from "@/lib/action/appointment.actoins";
 import Image from "next/image";
 import Link from "next/link";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { DataTable } from "../../components/table/data-table";
 import { columns } from "@/components/table/columns";
+import Spinner from "@/components/spinner";
+import { any } from "zod";
 
-const Admin = async () => {
-  const appointments = await getRecentAppointments();
+const Admin = () => {
+  const [appointments, setAppointments] = useState();
+  const [loading, setLoading] = useState(true);
+
+  const fetchAppointments = async () => {
+    setLoading(true);
+    const appointmentsData = await getRecentAppointments();
+    setAppointments(appointmentsData);
+    setLoading(false);
+  };
+
+  useEffect(() => {
+    fetchAppointments();
+  }, []);
+
+  if (loading) {
+    return <Spinner />;
+  }
 
   return (
     <div className="mx-auto flex max-w-7xl flex-col space-y-14">
