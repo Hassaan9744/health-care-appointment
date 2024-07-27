@@ -37,15 +37,19 @@ const PatientForm = () => {
       const response = await createUser(user);
 
       if (response.existingUser) {
-        router.push(`/patient/${response.existingUser.$id}/new-appointment`);
+        router.push(`/patient/${response.existingUser.$id}/appointments`);
       } else if (response.newUser) {
+        console.log("newUser", response.newUser);
         router.push(`/patient/${response.newUser.$id}/register`);
+      } else {
+        throw new Error("Unexpected response structure");
       }
     } catch (error) {
-      console.log(error);
+      console.error("An error occurred during form submission:", error);
+      alert("An error occurred. Please try again.");
+    } finally {
+      setIsLoading(false);
     }
-
-    setIsLoading(false);
   };
 
   return (

@@ -67,11 +67,19 @@ const SuccessPage = async ({
             <p>{formatDateTime(appointment.schedule).dateTime}</p>
           </div>
         </section>
-        <Button variant="outline" className="shad-primary-btn" asChild>
-          <Link href={`/patient/${userId}/new-appointment`}>
-            New Appointment
-          </Link>
-        </Button>
+        <div className="flex justify-between items-center max-w-[600px] gap-6">
+          <Button variant="outline" className="shad-primary-btn" asChild>
+            <Link href={`/patient/${userId}/new-appointment`}>
+              New Appointment
+            </Link>
+          </Button>
+          <Button variant="outline" className="shad-primary-btn" asChild>
+            <Link className="flex" href={`/patient/${userId}/appointments`}>
+              See all Appointments
+            </Link>
+          </Button>
+        </div>
+
         <p className="copyright">© 2024 CarePulse.</p>
       </div>
     </div>

@@ -19,12 +19,10 @@ export default async function NewAppointment({
             height={1000}
             width={1000}
           />
-
           <AppointmentForm
             type="create"
             userId={userId}
             patientId={patient.$id}
-            setOpen={() => {}}
           />
 
           <p className="copyright mt-10 py-12">© 2024 CarePulse.</p>

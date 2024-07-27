@@ -39,7 +39,19 @@ export const getAppointment = async (appointmentId: string) => {
     console.log("error", error);
   }
 };
-
+export const getUserAppointments = async (userId: string) => {
+  try {
+    const response = await databases.listDocuments(
+      DATABASE_ID!,
+      APPOINTMENT_COLLECTION_ID!,
+      [Query.equal("userId", userId), Query.orderDesc("$createdAt")]
+    );
+    return parseStringify(response.documents);
+  } catch (error) {
+    console.error("Error fetching appointments:", error);
+    throw error;
+  }
+};
 export const getRecentAppointments = async () => {
   try {
     const appointments = await databases.listDocuments(

@@ -17,6 +17,7 @@ import { parseStringify } from "../utils";
 // CREATE APPWRITE USER
 export const createUser = async (user: CreateUserParams) => {
   try {
+    // Check if the user email already exists
     const existingUsers = await users.list([
       Query.equal("email", [user.email]),
     ]);

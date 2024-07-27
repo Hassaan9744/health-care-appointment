@@ -1,34 +1,13 @@
-"use client";
+// components/appointments-columns.tsx
+
 import { ColumnDef } from "@tanstack/react-table";
-import { StatusBadge } from "../status-badge";
+import { StatusBadge } from "../../status-badge";
 import { formatDateTime } from "@/lib/utils";
-import { Doctors } from "@/constants";
 import Image from "next/image";
-import AppointmentModal from "../appointment-model";
-
-// This type is used to define the shape of our data.
-// You can use a Zod schema here if you want.
-// nkwenswvnver23u2309u
-// nlve493u49vle == hasan
-export type Payment = {
-  userId: string;
-  amount: number;
-  status: "pending" | "processing" | "success" | "failed";
-  email: string;
-  schedule: string;
-  patient: {
-    $id: string;
-    name: string;
-    email: string;
-  };
-  primayPhysicain: string;
-  appointment: any;
-  reason: string;
-  note: string;
-  cancellationReason: string | null;
-};
-
-export const columns: ColumnDef<Payment>[] = [
+import { Appointment } from "@/types/appwrite.types";
+import { Doctors } from "@/constants";
+import AppointmentModal from "@/components/appointment-model";
+export const columns: ColumnDef<Appointment>[] = [
   {
     header: "ID",
     cell: ({ row }) => <p className="text-14-medium">{row.index + 1}</p>,
@@ -37,7 +16,6 @@ export const columns: ColumnDef<Payment>[] = [
     accessorKey: "patient",
     header: "Patient",
     cell: ({ row }) => (
-      // @ts-ignore
       <p className="text-14-medium">{row.original.patient.name}</p>
     ),
   },
@@ -57,6 +35,13 @@ export const columns: ColumnDef<Payment>[] = [
       <p className="text-14-regular min-w-[100px]">
         {formatDateTime(row.original.schedule).dateTime}
       </p>
+    ),
+  },
+  {
+    accessorKey: "reason",
+    header: "Reason",
+    cell: ({ row }) => (
+      <p className="text-14-regular min-w-[100px]">{row.original.reason}</p>
     ),
   },
   {
@@ -87,12 +72,6 @@ export const columns: ColumnDef<Payment>[] = [
     cell: ({ row: { original: data } }) => {
       return (
         <div className="flex gap-1">
-          <AppointmentModal
-            type="schedule"
-            patientId={data.patient.$id}
-            userId={data.userId}
-            appointment={data}
-          />
           <AppointmentModal
             type="cancel"
             patientId={data.patient.$id}

@@ -17,8 +17,6 @@ interface appointmentModalProps {
   appointment: Appointment;
   patientId: string;
   userId: string;
-  title: string;
-  description: string;
 }
 
 const AppoitmentModal = ({
@@ -26,8 +24,6 @@ const AppoitmentModal = ({
   userId,
   appointment,
   patientId,
-  title,
-  description,
 }: appointmentModalProps) => {
   const [open, setOpen] = useState(false);
   return (

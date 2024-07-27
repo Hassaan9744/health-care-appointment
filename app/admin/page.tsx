@@ -4,10 +4,11 @@ import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 import { DataTable } from "../../components/table/data-table";
-import { columns, Payment } from "@/components/table/columns";
+import { columns } from "@/components/table/columns";
 
 const Admin = async () => {
   const appointments = await getRecentAppointments();
+
   return (
     <div className="mx-auto flex max-w-7xl flex-col space-y-14">
       <header className="admin-header">
@@ -19,8 +20,8 @@ const Admin = async () => {
             height={32}
             width={162}
           />
-          <p className="text-16-semibold"> Admin Dashboard</p>
         </Link>
+        <p className="text-16-semibold"> Admin Dashboard</p>
       </header>
       <section className="w-full space-y-4 ">
         <h1 className="header">Welcome👋</h1>
