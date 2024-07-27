@@ -2,7 +2,6 @@
 import {
   AlertDialog,
   AlertDialogAction,
-  AlertDialogCancel,
   AlertDialogContent,
   AlertDialogDescription,
   AlertDialogFooter,
@@ -37,7 +36,6 @@ const PasskeyModal = () => {
         setOpen(false);
         toast({
           title: "Admin Login Successful",
-          variant: "default",
         });
         router.push("/admin");
       } else {

@@ -1,4 +1,5 @@
 "use client";
+import { useRouter } from "next/navigation";
 import StatCard from "@/components/stat-card";
 import { getRecentAppointments } from "@/lib/action/appointment.actoins";
 import Image from "next/image";
@@ -7,11 +8,16 @@ import React, { useEffect, useState } from "react";
 import { DataTable } from "../../components/table/data-table";
 import { columns } from "@/components/table/columns";
 import Spinner from "@/components/spinner";
-import { any } from "zod";
-
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
+import { Button } from "@/components/ui/button";
 const Admin = () => {
   const [appointments, setAppointments] = useState();
   const [loading, setLoading] = useState(true);
+  const router = useRouter();
 
   const fetchAppointments = async () => {
     setLoading(true);
@@ -21,13 +27,22 @@ const Admin = () => {
   };
 
   useEffect(() => {
-    fetchAppointments();
+    const accessKey = localStorage.getItem("accesskey");
+    if (accessKey !== process.env.NEXT_PUBLIC_PASSKEY) {
+      router.push("/");
+      return;
+    } else {
+      fetchAppointments();
+    }
   }, []);
 
   if (loading) {
     return <Spinner />;
   }
-
+  const logout = () => {
+    localStorage.removeItem("accesskey");
+    router.push("/");
+  };
   return (
     <div className="mx-auto flex max-w-7xl flex-col space-y-14">
       <header className="admin-header">
@@ -40,12 +55,19 @@ const Admin = () => {
             width={162}
           />
         </Link>
-        <p className="text-16-semibold"> Admin Dashboard</p>
+        <Popover>
+          <PopoverTrigger>Admin</PopoverTrigger>
+          <PopoverContent className="w-fit border-0 bg-dark-200">
+            <Button className="bg-red-700" onClick={logout}>
+              Logout
+            </Button>
+          </PopoverContent>
+        </Popover>
       </header>
-      <section className="w-full space-y-4 ">
+      <section className="w-full space-y-4">
         <h1 className="header">Welcome👋</h1>
         <p className="text-dark-700">
-          Start the day wth managing new appointments
+          Start the day with managing new appointments
         </p>
       </section>
       <section className="admin-stat">
