@@ -13,7 +13,7 @@ import {
   users,
 } from "../appwrite.config";
 import { parseStringify } from "../utils";
-
+import sdk from "node-appwrite";
 // CREATE APPWRITE USER
 export const createUser = async (user: CreateUserParams) => {
   try {
@@ -40,6 +40,25 @@ export const createUser = async (user: CreateUserParams) => {
   } catch (error: any) {
     console.error("An error occurred while creating a new user:", error);
     throw error;
+  }
+};
+// check User Profile
+export const checkUserEmail = async (email: string) => {
+  try {
+    const result = await databases.listDocuments(
+      DATABASE_ID!,
+      PATIENT_COLLECTION_ID!,
+      [sdk.Query.equal("email", email)]
+    );
+
+    if (result.documents.length > 0) {
+      return true;
+    } else {
+      return false;
+    }
+  } catch (error) {
+    console.error("An error occurred while checking the user email:", error);
+    return false;
   }
 };
 // GET USER

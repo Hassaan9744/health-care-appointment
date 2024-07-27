@@ -6,7 +6,7 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 
 import { Form } from "@/components/ui/form";
-import { createUser } from "@/lib/action/patient.action";
+import { createUser, checkUserEmail } from "@/lib/action/patient.action";
 import { UserFormValidation } from "@/lib/validation";
 
 import "react-phone-number-input/style.css";
@@ -37,7 +37,13 @@ const PatientForm = () => {
       const response = await createUser(user);
 
       if (response.existingUser) {
-        router.push(`/patient/${response.existingUser.$id}/appointments`);
+        const existingUser = await checkUserEmail(response.existingUser.email);
+        console.log("existingUser", existingUser);
+        if (existingUser === true) {
+          router.push(`/patient/${response.existingUser.$id}/appointments`);
+        } else {
+          router.push(`/patient/${response.existingUser.$id}/register`);
+        }
       } else if (response.newUser) {
         console.log("newUser", response.newUser);
         router.push(`/patient/${response.newUser.$id}/register`);
